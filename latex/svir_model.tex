@@ -1,0 +1,66 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage[table]{xcolor}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+\title{Hybrid SVIR--Machine Learning for COVID-19 Forecasting}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{The SVIR model}
+
+The full system of nonlinear ordinary differential equations is
+\begin{subequations} \label{eq:SVIR}
+\begin{align}
+    \dfrac{dS}{dt} &= \pi + \sigma V - \lambda S - \omega S - \mu S, \label{eq:SVIR_S}\\
+    \dfrac{dV}{dt} &= \omega S - (1 - \epsilon) \lambda V - \sigma V - \mu V, \label{eq:SVIR_V}\\
+    \dfrac{dI}{dt} &= \lambda S + (1 - \epsilon) \lambda V - (\mu + \gamma + \rho_1 + \delta) I, \label{eq:SVIR_I}\\
+    \dfrac{dI_c}{dt} &= \gamma I - (\mu + \rho_2 + \delta) I_c, \label{eq:SVIR_Ic}\\
+    \dfrac{dR}{dt} &= \rho_1 I + \rho_2 I_c - \mu R. \label{eq:SVIR_R}
+\end{align}
+\end{subequations}
+
+Each term on the right-hand side of \eqref{eq:SVIR} corresponds to a transition in the compartmental flow. The system is supplemented with the initial conditions
+\begin{equation}
+\begin{aligned}
+    S(0)&=S_0>0, &
+    V(0)&=V_0\geq 0, &
+    I(0)&=I_0\geq 0, \\
+    I_c(0)&=I_{c,0}\geq 0, &
+    R(0)&=R_0\geq 0.
+\end{aligned}
+\label{eq:initial_conditions}
+\end{equation}
+
+All parameters are non-negative, with \(\pi,\mu,\beta>0\) and \(0\leq\epsilon\leq 1\). Their meaning and units are given in Table~\ref{tab:parameters}.
+
+\begin{table}[ht]
+\centering
+\caption{Parameters of the SVIR model.}
+\label{tab:parameters}
+\rowcolors{2}{lightgray}{white}
+\begin{tabular}{llp{4.2cm}}
+\toprule
+\textbf{Parameter} & \textbf{Description} & \textbf{Units} \\
+\midrule
+\(\pi\)        & Recruitment (birth) rate into \(S\) & individuals\(\cdot\)day\(^{-1}\) \\
+\(\mu\)        & Natural death rate & day\(^{-1}\) \\
+\(\omega\)     & Vaccination rate (\(S\to V\)) & day\(^{-1}\) \\
+\(\sigma\)     & Waning rate of vaccine immunity (\(V\to S\)) & day\(^{-1}\) \\
+\(\epsilon\)   & Vaccine efficacy against infection & dimensionless \\
+\(\gamma\)     & Detection rate (\(I\to I_c\)) & day\(^{-1}\) \\
+\(\rho_1\)     & Recovery rate of undetected infectious individuals & day\(^{-1}\) \\
+\(\rho_2\)     & Recovery rate of confirmed infectious individuals & day\(^{-1}\) \\
+\(\delta\)     & Disease-induced death rate of \(I\) and \(I_c\) & day\(^{-1}\) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{document}
