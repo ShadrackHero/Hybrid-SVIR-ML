@@ -39,6 +39,12 @@ $$
 \lambda(t) = \dfrac{\beta \bigl(I(t) + I_c(t)\bigr)}{N(t)}
 $$
 
+**Total population**
+
+$$
+N(t) = S(t) + V(t) + I(t) + I_c(t) + R(t)
+$$
+
 **Variables**
 
 | Variables | Description | Units |
