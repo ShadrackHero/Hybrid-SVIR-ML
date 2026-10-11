@@ -1,7 +1,7 @@
 # Hybrid SVIR–Machine Learning for COVID-19 Forecasting
 
 Hybrid forecasting approach that couples a mechanistic SVIR compartmental model  
-(S = Susceptible, V = Vaccinated, I = Infectious, I_c = Confirmed Infectious, R = Recovered)  
+($$S = Susceptible, V = Vaccinated, I = Infectious, I_c = ConfirmedInfectious, R = Recovered$$)  
 with machine-learning methods. Focus is on daily COVID-19 cases merged with vaccination data.
 
 ## Project overview
@@ -33,6 +33,22 @@ $$
 \end{aligned}
 $$
 
+**Force of Infection:**
+
+$$
+\lambda(t) = \dfrac{\beta \bigl(I(t) + I_c(t)\bigr)}{N(t)}
+$$
+
+**Variables**
+
+| Variables | Description | Units |
+|-----------|-------------|-------|
+| $S(t)$ | Number of susceptible indiduals at time $t$ | individuals |
+| $V(t)$ | Number of vaccinated indiduals at time $t$ | individuals |
+| $I(t)$ | Number of unconfirmed indiduals at time $t$ | individuals |
+| $I_c(t)$ | Number of confiremed infectious indiduals at time $t$ | individuals |
+| $R(t)$ | Number of recovered indiduals at time $t$ | individuals |
+
 **Initial conditions:**
 
 $$
@@ -49,15 +65,15 @@ $$
 
 | Parameter | Description | Units |
 |-----------|-------------|-------|
-| $\pi$ | Recruitment (birth) rate into $S$ | individuals·day$^{-1}$ |
-| $\mu$ | Natural death rate | day$^{-1}$ |
-| $\omega$ | Vaccination rate ($S\to V$) | day$^{-1}$ |
-| $\sigma$ | Waning rate of vaccine immunity ($V\to S$) | day$^{-1}$ |
+| $\pi$ | Recruitment (birth) rate into $S$ | individuals·day $^{-1}$ |
+| $\mu$ | Natural death rate | day $^{-1}$ |
+| $\omega$ | Vaccination rate ($S\to V$) | day $^{-1}$ |
+| $\sigma$ | Waning rate of vaccine immunity ($V\to S$) | day $^{-1}$ |
 | $\epsilon$ | Vaccine efficacy against infection | dimensionless |
-| $\gamma$ | Detection rate ($I\to I_c$) | day$^{-1}$ |
-| $\rho_1$ | Recovery rate of undetected infectious individuals | day$^{-1}$ |
-| $\rho_2$ | Recovery rate of confirmed infectious individuals | day$^{-1}$ |
-| $\delta$ | Disease-induced death rate of $I$ and $I_c$ | day$^{-1}$ |
+| $\gamma$ | Detection rate ($I\to I_c$) | day $^{-1}$ |
+| $\rho_1$ | Recovery rate of undetected infectious individuals | day $^{-1}$ |
+| $\rho_2$ | Recovery rate of confirmed infectious individuals | day $^{-1}$ |
+| $\delta$ | Disease-induced death rate of $I$ and $I_c$ | day $^{-1}$ |
 
 All parameters are non-negative, with $\pi, \mu, \beta > 0$ and $0 \leq \epsilon \leq 1$.
 
@@ -70,13 +86,3 @@ All parameters are non-negative, with $\pi, \mu, \beta > 0$ and $0 \leq \epsilon
 - Python (pandas, scipy, matplotlib)
 - LaTeX (model write-up)
 - Git / GitHub
-
-## Next steps
-- Download and document raw data sources
-- Clean and merge daily cases + vaccination data
-- Implement basic SVIR simulation
-- Interpret first results
-
-## Notes
-This is a modelling project distinct from the descriptive ZA Pulse analytics work.  
-All data pipelines, model equations, and code are version-controlled here for reproducibility.
